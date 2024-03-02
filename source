@@ -1,0 +1,62 @@
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+
+local PhantomForcesWindow = Library:NewWindow("Fenyx Hub V2")
+
+-- Sections
+
+local FenyxGod = PhantomForcesWindow:NewSection("Extra")
+local KillingCheats = PhantomForcesWindow:NewSection("Player")
+
+-- Options
+
+KillingCheats:CreateButton("Admin Commands", function()
+local success, scriptContent = pcall(game.HttpGet, game, "https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source")
+
+    if success then
+        local success, scriptFunction = pcall(loadstring, scriptContent)
+
+        if success then
+            scriptFunction()
+        else
+            print("Failed to load Admin Commands script.")
+        end
+    else
+        print("Failed to fetch Admin Commands script from GitHub.")
+    end
+end)
+
+KillingCheats:CreateButton("Void Kill", function()
+local player = game.Players.LocalPlayer
+
+    -- Define the function to handle void kill
+    local function voidKill()
+        -- Implement your void kill logic here
+        -- This can involve teleporting nearby players to a specific location, possibly a void area
+
+        print("Void Kill executed.")
+    end
+
+    -- Execute the void kill function
+    voidKill()
+end)
+
+FenyxGod:CreateButton("Discord Server",function()
+    local discordServerLink = "https://discord.gg/p5adEFmNnb"
+
+    -- Create a LocalScript to open the link
+    local openLinkScript = Instance.new("LocalScript")
+    openLinkScript.Source = [[
+        local discordLink = "]] .. discordServerLink .. [["
+        local function openDiscordLink()
+            if discordLink then
+                syn.open_url(discordLink)
+            else
+                warn("Discord server link is not specified.")
+            end
+        end
+        openDiscordLink()
+    ]]
+
+    -- Parent the LocalScript to the player's PlayerGui
+    openLinkScript.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+end)
